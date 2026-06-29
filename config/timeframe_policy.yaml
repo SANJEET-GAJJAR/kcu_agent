@@ -1,0 +1,52 @@
+# Timeframe policy for KCU backtesting.
+# Defines which timeframe candles are required for each time window of the trading session.
+# All timeframe data must be independently collected — never derived from another timeframe.
+#
+# Controlled by config — never hardcoded in business logic.
+
+version: "1.0.0"
+
+# Default KCU trading session policy.
+# Each window specifies the timeframe used for that portion of the session (ET times).
+default_policy:
+  name: "KCU Standard"
+  windows:
+    - start: "09:30"
+      end: "10:00"
+      timeframe: "2"
+      label: "open_range"
+    - start: "10:00"
+      end: "16:00"
+      timeframe: "5"
+      label: "main_session"
+
+# Future optional extension — not active unless added here.
+# extended_policy:
+#   windows:
+#     - start: "09:30"
+#       end: "10:00"
+#       timeframe: "2"
+#       label: "open_range"
+#     - start: "10:00"
+#       end: "11:00"
+#       timeframe: "5"
+#       label: "mid_morning"
+#     - start: "11:00"
+#       end: "16:00"
+#       timeframe: "10"
+#       label: "afternoon"
+
+# Required collections per protocol level.
+# full_protocol: all timeframes referenced by default_policy — required for a real KCU backtest run.
+# smoke_test:    2m only — valid for verifying collection and preflight infrastructure only.
+required_timeframes:
+  full_protocol:
+    - "2"
+    - "5"
+  smoke_test:
+    - "2"
+
+# Timeframe derivation is never permitted.
+# 5m candles must always be collected independently from TradingView replay.
+# Setting this to true is not supported and will raise an error.
+allow_derived_timeframes: false

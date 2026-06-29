@@ -1,0 +1,95 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2870
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 # config/models.yaml\
+# KCU Agent Model Configuration\
+# Last Updated: 2026-06-29\
+\
+version: 1\
+\
+defaults:\
+  timeout_seconds: 300\
+  max_retries: 2\
+  fallback_on_failure: true\
+\
+market_provider:\
+  provider: tradingview-mcp\
+  capabilities:\
+    - replay\
+    - screenshots\
+    - candle_extraction\
+    - chart_navigation\
+\
+deterministic_engine:\
+  provider: python\
+  capabilities:\
+    - replay_engine\
+    - indicator_calculation\
+    - feature_extraction\
+    - trade_simulation\
+    - statistics\
+    - validation\
+    - file_generation\
+\
+implementation_model:\
+  provider: ollama-cloud\
+  model: glm-5.2:cloud\
+  command: "ollama run glm-5.2:cloud"\
+\
+  capabilities:\
+    - code_generation\
+    - refactoring\
+    - documentation\
+    - json_generation\
+    - schema_generation\
+    - implementation_planning\
+    - setup_classification\
+\
+  fallback:\
+    provider: local-ollama\
+    model: qwen3:14b\
+\
+architecture_model:\
+  provider: claude\
+  model: opus\
+\
+  capabilities:\
+    - architecture\
+    - repository_design\
+    - complex_reasoning\
+    - debugging\
+    - implementation_review\
+    - conflict_resolution\
+\
+review_model:\
+  provider: codex\
+\
+  capabilities:\
+    - python_review\
+    - optimization\
+    - test_generation\
+    - static_analysis\
+\
+routing:\
+  architecture: architecture_model\
+  implementation: implementation_model\
+  replay_engine: deterministic_engine\
+  indicator_calculation: deterministic_engine\
+  feature_extraction: deterministic_engine\
+  statistics: deterministic_engine\
+  validation: deterministic_engine\
+  documentation: implementation_model\
+  testing: review_model\
+  code_review: review_model\
+\
+policies:\
+  deterministic_first: true\
+  minimize_architecture_tokens: true\
+  allow_fallback_models: true\
+  never_use_llm_for_math: true\
+  never_use_llm_for_indicator_calculation: true\
+  never_use_future_candles: true}

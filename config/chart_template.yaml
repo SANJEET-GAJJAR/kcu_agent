@@ -1,0 +1,30 @@
+# Chart template requirements for KCU backtesting.
+# Collection cannot start unless all requirements pass.
+# Controlled by config — never hardcoded in business logic.
+
+required_template: "only KCU indicator"
+
+required_indicators:
+  - "Stop Loss Widget"
+  - "KCU Indicator"
+  - "Volume"
+
+# Alternative names the KCU Indicator may appear as on the chart.
+# Used for KCU presence check and version capture.
+kcu_indicator_keys:
+  - "KCU Indicator"
+  - "KCU LTP Indicator"
+  - "KCU"
+  - "KCU_Indicator"
+  - "KCU Backtesting"
+  - "KCU Strategy"
+
+# MCP tool called to read the current chart state (template + studies).
+chart_state_tool: "chart_get_state"
+
+# Versioning — increment when collection format changes.
+collection_version: "1.0.0"
+collector_version: "1.0.0"
+
+# Written to output_dir when preflight fails.
+preflight_failed_filename: "preflight_failed.json"

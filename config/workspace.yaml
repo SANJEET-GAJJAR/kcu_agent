@@ -1,0 +1,32 @@
+# Workspace protection configuration for TradingView collection.
+#
+# The collector must ONLY operate on the dedicated backtesting layout.
+# The live trading layout is protected and must never be touched.
+#
+# REQUIRED: set both workspace names to match your actual TradingView layout names
+# exactly as they appear in the TradingView header (case-insensitive match is used).
+#
+# To find layout names: run `layout_list` via the MCP server to list all saved layouts.
+
+# Name of your live trading layout in TradingView.
+# Collection will be blocked if this layout is detected as active.
+live_workspace_name: "Live Trading"
+
+# Name of your dedicated backtesting layout in TradingView.
+# Collection will only proceed if this layout is detected as active.
+backtest_workspace_name: "KCU"
+
+# Which workspace is required for collection.
+# Only "backtesting" is supported.
+required_workspace: backtesting
+
+# When true, the live_workspace_name is treated as a hard block.
+# If the active layout matches live_workspace_name, collection always fails.
+# Set to false only if you want live-workspace detection to be advisory only.
+protected_live_workspace: true
+
+# When false (default), collection fails if the active workspace cannot be
+# detected (returns "unknown").  When true, unknown workspaces are allowed
+# but a workspace_warning is written into the collection metadata.
+# ONLY set to true during initial setup/debugging.
+allow_unknown_workspace_for_collection: false
